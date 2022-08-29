@@ -1,19 +1,25 @@
 {
-  "name": "mi-primera-app-node-maravillosa-fua-que-momentazo-estoy-a-punto-de-vivir",
+  "name": "mahlzeit",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "test": "jest src --passWithNoTests",
+    "test:dev": "jest src --watchAll",
     "ts": "tsc",
     "ts:dev": "tsc -w",
-    "start": "node .",
+    "start": "node dist/index.js",
     "start:dev": "nodemon -q",
-    "test": "jest --passWithNoTests",
-    "prepare": "husky install"
+    "build": "npm run ts",
+    "prepare": "husky install",
+    "jest-coverage": "jest src --coverage --watchAll=false"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "^18.4.0"
+  },
   "devDependencies": {
     "@types/jest": "^28.1.6",
     "@types/node": "^18.7.1",
