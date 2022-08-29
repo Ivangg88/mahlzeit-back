@@ -7,7 +7,8 @@
     "ts": "tsc",
     "ts:dev": "tsc -w",
     "start": "node .",
-    "start:dev": "nodemon -q"
+    "start:dev": "nodemon -q",
+    "test": "jest --passWithNoTests"
   },
   "keywords": [],
   "author": "",
