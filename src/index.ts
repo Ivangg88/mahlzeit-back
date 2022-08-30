@@ -1,12 +1,16 @@
 import "./loadEnvironment";
-import chalk from "chalk";
-import Debug from "debug";
+import connectDB from "./database";
 import { startServer } from "./server/startServer";
 
-const debug = Debug("mahlzeit:index");
+const port = +process.env.PORT ?? 3500;
 
-debug(chalk.red("Holi desde debug"));
+const mongoUrl = process.env.MONGO_DB;
 
-const port = +process.env.PORT;
-
-startServer(port);
+(async () => {
+  try {
+    await connectDB(mongoUrl);
+    await startServer(port);
+  } catch (error) {
+    process.exit(1);
+  }
+})();
