@@ -1,4 +1,4 @@
-import ICustomError from "../types/interfaces";
+import { ICustomError } from "../types/interfaces";
 
 class CustomError extends Error implements ICustomError {
   constructor(
