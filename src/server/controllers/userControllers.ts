@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../../database/models/userModel";
 import { UserResgiter } from "../../types/interfaces";
-import hashCreator from "../../utils/auth";
+import hashCreator from "../../utils/authentication";
 import CustomError from "../../utils/error";
 
 const registerUser = async (
