@@ -5,7 +5,7 @@ import CustomError from "../../utils/error";
 
 const debug = Debug("mahlzeit:server:middlewares:errors");
 
-const errorNotFound = (req: Request, res: Response): void => {
+export const errorNotFound = (req: Request, res: Response): void => {
   res.status(404).json({ message: "Error endpoint not found" });
   debug(chalk.red("Error 404 endpoint not found"));
 };
@@ -24,5 +24,3 @@ export const generalError = (
 
   res.status(errorCode).json({ error: errorMessage });
 };
-
-export default errorNotFound;

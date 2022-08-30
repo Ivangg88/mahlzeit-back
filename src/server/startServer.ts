@@ -1,13 +1,10 @@
-import express from "express";
 import Debug from "debug";
 import chalk from "chalk";
-
-export const app = express();
-app.disable("x-powered-by");
+import app from ".";
 
 const debug = Debug("mahlzeit:startServer");
 
-export const startServer = (port: number) =>
+const startServer = (port: number) =>
   new Promise((resolve, reject) => {
     const server = app.listen(port, () => {
       debug(chalk.blue(`Listening on the port ${port}`));
@@ -19,3 +16,5 @@ export const startServer = (port: number) =>
       reject(error);
     });
   });
+
+export default startServer;

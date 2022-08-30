@@ -1,6 +1,6 @@
 import "./loadEnvironment";
 import connectDB from "./database";
-import { startServer } from "./server/startServer";
+import startServer from "./server/startServer";
 
 const port = +process.env.PORT ?? 3500;
 
