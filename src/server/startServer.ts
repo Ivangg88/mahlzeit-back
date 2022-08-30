@@ -3,6 +3,7 @@ import Debug from "debug";
 import chalk from "chalk";
 
 export const app = express();
+app.disable("x-powered-by");
 
 const debug = Debug("mahlzeit:startServer");
 
