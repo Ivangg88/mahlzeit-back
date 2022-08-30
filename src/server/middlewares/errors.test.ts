@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import CustomError from "../../utils/error";
-import errorNotFound, { generalError } from "./errors";
+import { errorNotFound, generalError } from "./errors";
 
 describe("Given a function errorNotFound", () => {
   describe("When is called", () => {
