@@ -14,3 +14,13 @@ export interface Ingredient {
 export interface Process {
   steps: string[];
 }
+
+export interface UserResgiter {
+  userName: string;
+  email: string;
+  password: string;
+}
+
+export interface UserFromDB extends UserResgiter {
+  id: string;
+}
