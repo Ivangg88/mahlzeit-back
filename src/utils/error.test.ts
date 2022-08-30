@@ -25,9 +25,9 @@ describe("Given a class CustomError", () => {
     });
   });
 
-  describe("When instantiated with a public message 'Public message'", () => {
-    test("Then it should create an object with the publicMessage 'Public message'", () => {
-      const publicMessage = "Public message";
+  describe("When instantiated with a public message 'Public-message'", () => {
+    test("Then it should create an object with the publicMessage 'Public-message'", () => {
+      const publicMessage = "Public-message";
 
       const error = new CustomError(0, "", publicMessage);
 
