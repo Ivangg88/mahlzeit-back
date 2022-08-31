@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import Debug from "debug";
 import { NextFunction, Request, Response } from "express";
+import { ValidationError } from "express-validation";
 import CustomError from "../../utils/error";
 
 const debug = Debug("mahlzeit:server:middlewares:errors");
@@ -18,7 +19,17 @@ export const generalError = (
   next: NextFunction
 ) => {
   const errorCode = error.statusCode ?? 500;
-  const errorMessage = error.publicMessage ?? "General error.";
+  let errorMessage = error.publicMessage ?? "General error.";
+
+  if (error instanceof ValidationError) {
+    errorMessage = "Wrong data";
+    const {
+      details: { body },
+    } = error;
+    body.forEach((errorElement) =>
+      debug(chalk.red(`Validation error: ${errorElement.message} `))
+    );
+  }
 
   debug(chalk.red(error.message));
 
