@@ -1,0 +1,33 @@
+{
+  "info": {
+    "_postman_id": "087d2fde-c630-4548-a68d-a00bbbaf342b",
+    "name": "Mahlzeit",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "22257116"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"userName\":\"yourName\",\r\n    \"email\":\"your email\",\r\n    \"password\":\"your password\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://igarcia-final-project-202207.herokuapp.com/users/register",
+          "protocol": "https",
+          "host": ["igarcia-final-project-202207", "herokuapp", "com"],
+          "path": ["users", "register"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
