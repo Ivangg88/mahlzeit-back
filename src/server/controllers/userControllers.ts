@@ -15,10 +15,10 @@ const registerUser = async (
   try {
     user.password = await hashCreator(user.password);
     await User.create(user);
-    res.status(200).json({
+    res.status(201).json({
       user: {
         name: user.userName,
-        message: `User ${user.userName} registered sucessfully.`,
+        message: `User ${user.userName} was registered sucessfully.`,
       },
     });
   } catch (error) {

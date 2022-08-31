@@ -4,7 +4,7 @@ const usersRegisterSchema = {
   body: Joi.object({
     userName: Joi.string().required(),
     email: Joi.string().required(),
-    password: Joi.string().required(),
+    password: Joi.string().min(8).required(),
   }),
 };
 

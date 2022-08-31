@@ -15,7 +15,7 @@ describe("Given a function registerUser.", () => {
     status: jest.fn().mockReturnThis(),
     json: jest.fn(),
   } as Partial<Response>;
-  const status = 200;
+  const status = 201;
   const next = jest.fn();
 
   bcryptjs.hash = jest.fn().mockResolvedValue("Passwordwithash");
