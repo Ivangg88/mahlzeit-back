@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { errors, ValidationError } from "express-validation";
 import CustomError from "../../utils/error";
 import { errorNotFound, generalError } from "./errors";
 
@@ -26,6 +27,7 @@ describe("Given a function generalError.", () => {
   } as Partial<Response>;
   const req = {} as Partial<Request>;
   const next = () => {};
+
   describe("When is called with an error.", () => {
     test("Then it should call the response method status with the error code and the error message.", () => {
       const status = 500;
@@ -54,5 +56,27 @@ describe("Given a function generalError.", () => {
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
       expect(res.json).toHaveBeenCalledWith(expectedError);
     });
+  });
+
+  describe("When it receive a ValidationError", () => {
+    test("Then it should call the response method status with the error code and the message 'Wrong data'.", () => {});
+    const validationError = new ValidationError(
+      { body: [{ message: "error" }] } as errors,
+      {}
+    );
+    const response = {
+      error: "Wrong data",
+    };
+    const statusCode = 400;
+
+    generalError(
+      validationError as unknown as CustomError,
+      req as Request,
+      res as Response,
+      next
+    );
+
+    expect(res.status).toBeCalledWith(statusCode);
+    expect(res.json).toBeCalledWith(response);
   });
 });

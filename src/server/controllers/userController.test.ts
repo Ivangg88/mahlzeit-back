@@ -1,3 +1,4 @@
+import "../../loadEnvironment";
 import { Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import User from "../../database/models/userModel";

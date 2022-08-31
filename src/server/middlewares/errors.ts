@@ -18,10 +18,11 @@ export const generalError = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ) => {
-  const errorCode = error.statusCode ?? 500;
+  let errorCode = error.statusCode ?? 500;
   let errorMessage = error.publicMessage ?? "General error.";
 
   if (error instanceof ValidationError) {
+    errorCode = 400;
     errorMessage = "Wrong data";
     const {
       details: { body },
