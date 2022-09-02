@@ -45,7 +45,6 @@ export const loginUser = async (
 ) => {
   const user = req.body as UserLogin;
 
-  let foundUsers: Array<UserFromDB>;
   let foundUser: UserFromDB;
   const userError = new CustomError(
     403,
@@ -54,8 +53,8 @@ export const loginUser = async (
   );
 
   try {
-    foundUsers = await User.find({ userName: user.userName });
-    if (foundUsers.length === 0) {
+    foundUser = await User.findOne({ userName: user.userName });
+    if (foundUser === null) {
       next(userError);
       return;
     }
@@ -70,8 +69,6 @@ export const loginUser = async (
   }
 
   try {
-    [foundUser] = foundUsers;
-
     const isValidPassword = await bcryptjs.compare(
       user.password,
       foundUser.password
