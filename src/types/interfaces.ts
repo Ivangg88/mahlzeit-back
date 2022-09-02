@@ -21,6 +21,13 @@ export interface UserResgiter {
   password: string;
 }
 
+export interface CustomJwtPayload {
+  id: string;
+  userName: string;
+}
+
 export interface UserFromDB extends UserResgiter {
   id: string;
 }
+
+export type UserLogin = Omit<UserResgiter, "email">;
