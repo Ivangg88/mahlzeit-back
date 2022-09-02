@@ -5,21 +5,12 @@ import { generalError, errorNotFound } from "./middlewares/errors";
 import userRouters from "./routes/userRouters";
 
 const app = express();
-
-const whitelist = ["https://igarcia-final-project-202207.netlify.app"];
-
-const checkOrigin = (origin: string) => {
-  if (whitelist.includes(origin)) {
-    return origin;
-  }
-  return new Error("Not allowed by CORS");
-};
+app.disable("x-powered-by");
 
 const corsOptions = {
-  origin: checkOrigin(whitelist[0]) as string,
+  origin: "*",
 };
 
-app.disable("x-powered-by");
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
