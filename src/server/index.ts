@@ -7,7 +7,12 @@ import userRouters from "./routes/userRouters";
 const app = express();
 app.disable("x-powered-by");
 
-app.use(cors());
+const corsOptions = {
+  origin: "https://igarcia-final-project-202207.netlify.app/",
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
 
