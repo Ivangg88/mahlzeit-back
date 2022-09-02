@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import User from "../../database/models/userModel";
 import { loginUser, registerUser } from "./userControllers";
 import CustomError from "../../utils/error";
-import { UserFromDB, UserLogin } from "../../types/interfaces";
+import { UserFromDB } from "../../types/interfaces";
 
 describe("Given a function registerUser.", () => {
   const mockUser = {
