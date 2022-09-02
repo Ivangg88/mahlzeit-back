@@ -1,6 +1,6 @@
 import { Joi } from "express-validation";
 
-const usersRegisterSchema = {
+export const usersRegisterSchema = {
   body: Joi.object({
     userName: Joi.string().required(),
     email: Joi.string().required(),
@@ -8,4 +8,9 @@ const usersRegisterSchema = {
   }),
 };
 
-export default usersRegisterSchema;
+export const userLoginSchema = {
+  body: Joi.object({
+    userName: Joi.string().required(),
+    password: Joi.string().min(8).required(),
+  }),
+};
