@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
+import bcryptjs from "bcryptjs";
 import User from "../../database/models/userModel";
 import { UserResgiter } from "../../types/interfaces";
-import hashCreator from "../../utils/authentication";
 import CustomError from "../../utils/error";
 
 const registerUser = async (
@@ -11,9 +11,9 @@ const registerUser = async (
   next: NextFunction
 ) => {
   const user: UserResgiter = req.body;
-
+  const salt = 10;
   try {
-    user.password = await hashCreator(user.password);
+    user.password = await bcryptjs.hash(user.password, salt);
     await User.create(user);
     res.status(201).json({
       user: {
