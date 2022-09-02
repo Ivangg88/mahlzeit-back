@@ -8,7 +8,7 @@ const app = express();
 app.disable("x-powered-by");
 
 const corsOptions = {
-  origin: "https://igarcia-final-project-202207.netlify.app/",
+  origin: "https://igarcia-final-project-202207.netlify.app",
   optionsSuccessStatus: 200,
 };
 
