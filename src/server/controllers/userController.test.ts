@@ -2,7 +2,7 @@ import "../../loadEnvironment";
 import { Request, Response } from "express";
 import bcryptjs from "bcryptjs";
 import User from "../../database/models/userModel";
-import registerUser from "./userControllers";
+import { registerUser } from "./userControllers";
 import CustomError from "../../utils/error";
 
 describe("Given a function registerUser.", () => {
