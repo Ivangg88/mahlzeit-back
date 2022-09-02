@@ -1,7 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 import User from "../../database/models/userModel";
-import { UserFromDB, UserResgiter } from "../../types/interfaces";
+import {
+  CustomJwtPayload,
+  UserFromDB,
+  UserLogin,
+  UserResgiter,
+} from "../../types/interfaces";
 import CustomError from "../../utils/error";
 
 export const registerUser = async (
@@ -30,7 +36,6 @@ export const registerUser = async (
     next(customError);
   }
 };
-type UserLogin = Omit<UserResgiter, "email">;
 
 export const loginUser = async (
   req: Request,
@@ -42,7 +47,6 @@ export const loginUser = async (
 
   let foundUsers: Array<UserFromDB>;
   let foundUser: UserFromDB;
-
   const userError = new CustomError(
     403,
     "Error with the authentication",
@@ -50,8 +54,7 @@ export const loginUser = async (
   );
 
   try {
-    foundUsers = await User.find({ userName: user.userName.toString() });
-
+    foundUsers = await User.find({ userName: user.userName });
     if (foundUsers.length === 0) {
       next(userError);
       return;
@@ -68,6 +71,7 @@ export const loginUser = async (
 
   try {
     [foundUser] = foundUsers;
+
     const isValidPassword = await bcryptjs.compare(
       user.password,
       foundUser.password
@@ -82,4 +86,17 @@ export const loginUser = async (
     userError.message = error.message;
     next(userError);
   }
+
+  const payLoad: CustomJwtPayload = {
+    id: foundUser.id,
+    userName: foundUser.userName,
+  };
+
+  const responseData = {
+    user: {
+      token: jwt.sign(payLoad, process.env.PRIVATE_KEY),
+    },
+  };
+
+  res.status(200).json(responseData);
 };
