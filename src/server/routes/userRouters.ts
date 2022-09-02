@@ -13,8 +13,7 @@ userRouters.post(
 
 userRouters.post(
   "/login",
-  validate(userLogin
-    Schema, {}, { abortEarly: false }),
+  validate(userLoginSchema, {}, { abortEarly: false }),
   loginUser
 );
 

@@ -1,5 +1,6 @@
 import request from "supertest";
 import { MongoMemoryServer } from "mongodb-memory-server";
+import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import app from "..";
 import connectDB from "../../database";
@@ -37,6 +38,33 @@ describe("Given an userRouters on the endpooint /users/register", () => {
         .post("/users/register")
         .send(user)
         .expect(201);
+
+      expect(body).toEqual(responseBody);
+    });
+  });
+});
+
+describe("Given an userRouters on the endpooint /users/login", () => {
+  describe("When receives a request with an object user", () => {
+    test("Then it should call the controller registerUser", async () => {
+      const user = {
+        userName: "Pau",
+        password: "hasedPassword",
+      };
+      const token = "tokencreated";
+
+      jwt.sign = jest.fn().mockReturnValue(token);
+
+      const responseBody = {
+        user: {
+          token: "tokencreated",
+        },
+      };
+
+      const { body } = await request(app)
+        .post("/users/login")
+        .send(user)
+        .expect(200);
 
       expect(body).toEqual(responseBody);
     });
