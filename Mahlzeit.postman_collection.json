@@ -7,7 +7,7 @@
   },
   "item": [
     {
-      "name": "New Request",
+      "name": "Register",
       "request": {
         "method": "POST",
         "header": [],
@@ -31,7 +31,7 @@
       "response": []
     },
     {
-      "name": "New Request",
+      "name": "Login",
       "request": {
         "method": "POST",
         "header": [],
@@ -50,6 +50,21 @@
           "host": ["localhost"],
           "port": "3500",
           "path": ["users", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3500/items/getAll",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["items", "getAll"]
         }
       },
       "response": []
