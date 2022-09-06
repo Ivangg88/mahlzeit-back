@@ -10,3 +10,5 @@ itemsRouters.get(
   validate(itemSchema, {}, { abortEarly: false }),
   getItems
 );
+
+export default itemsRouters;
