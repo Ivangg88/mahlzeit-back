@@ -3,7 +3,6 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import app from "..";
 import connectDB from "../../database";
-import getItems from "../controllers/itemController";
 
 let mongoServer: MongoMemoryServer;
 
@@ -20,7 +19,7 @@ afterAll(async () => {
 
 describe("Given an itemRouter on the endpoint /items/getAll", () => {
   describe("When receives a GET request", () => {
-    test("Then it should call the controller getItems", async () => {
+    test("Then it should get a 201", async () => {
       await request(app).get("/items/getAll").expect(201);
     });
   });
