@@ -9,8 +9,7 @@ const debug = Debug("mahlzeit:server:controllers:itemcontroller");
 const getItems = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const items = await Item.find({});
-
-    await res.status(200).json(items);
+    await res.status(201).json(items);
 
     await debug(chalk.bgGreen.white("Request successful!"));
   } catch (error) {
@@ -19,6 +18,7 @@ const getItems = async (req: Request, res: Response, next: NextFunction) => {
       error.message,
       "Unable to get the items."
     );
+
     next(findError);
   }
 };

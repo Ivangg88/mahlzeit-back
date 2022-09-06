@@ -15,7 +15,7 @@ export interface Process {
   steps: string[];
 }
 
-export interface Item {
+export interface IItem {
   ingredients: Ingredient[];
   process: Process;
 }
