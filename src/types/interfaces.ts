@@ -15,6 +15,11 @@ export interface Process {
   steps: string[];
 }
 
+export interface IItem {
+  ingredients: Ingredient[];
+  process: Process;
+}
+
 export interface UserResgiter {
   userName: string;
   email: string;
