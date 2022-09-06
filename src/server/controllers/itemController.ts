@@ -9,9 +9,9 @@ const debug = Debug("mahlzeit:server:controllers:itemcontroller");
 const getItems = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const items = await Item.find({});
-    await res.status(201).json(items);
+    res.status(201).json(items);
 
-    await debug(chalk.bgGreen.white("Request successful!"));
+    debug(chalk.bgGreen.white("Request successful!"));
   } catch (error) {
     const findError = new CustomError(
       404,
