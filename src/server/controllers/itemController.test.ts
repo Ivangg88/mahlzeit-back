@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Item from "../../database/models/itemModel";
-import { IItem } from "../../types/interfaces";
+import { ItemFromDB } from "../../types/interfaces";
 import getItems from "./itemController";
 
 afterEach(() => {
@@ -18,7 +18,18 @@ describe("Given a function itemController", () => {
   const next = jest.fn();
   describe("When is called with a request", () => {
     test("Then it should call the method status of response with 200 and the method json of response with an array of items", async () => {
-      const items: IItem[] = [{ ingredients: [], process: { steps: [] } }];
+      const items: ItemFromDB[] = [
+        {
+          id: "",
+          name: "",
+          persons: 0,
+          dificulty: "Difícil",
+          autor: "",
+          image: "",
+          ingredients: [],
+          process: { steps: [] },
+        },
+      ];
       const status = 201;
 
       Item.find = jest.fn().mockResolvedValue(items);

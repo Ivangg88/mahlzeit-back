@@ -2,13 +2,14 @@ import chalk from "chalk";
 import Debug from "debug";
 import { NextFunction, Request, Response } from "express";
 import Item from "../../database/models/itemModel";
+import { ItemFromDB } from "../../types/interfaces";
 import CustomError from "../../utils/error";
 
 const debug = Debug("mahlzeit:server:controllers:itemcontroller");
 
 const getItems = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const items = await Item.find({});
+    const items: ItemFromDB[] = await Item.find();
     res.status(201).json(items);
 
     debug(chalk.bgGreen.white("Request successful!"));
