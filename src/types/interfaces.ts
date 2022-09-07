@@ -21,9 +21,9 @@ export interface ItemFromDB {
   persons: number;
   dificulty: "Fácil" | "Medio" | "Difícil";
   autor: string;
+  image: string;
   ingredients: Ingredient[];
   process: Process;
-  image: string;
 }
 
 export interface UserResgiter {
