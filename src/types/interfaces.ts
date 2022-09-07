@@ -15,9 +15,15 @@ export interface Process {
   steps: string[];
 }
 
-export interface IItem {
+export interface ItemFromDB {
+  id: string;
+  name: string;
+  persons: number;
+  dificulty: "Fácil" | "Medio" | "Difícil";
+  autor: string;
   ingredients: Ingredient[];
   process: Process;
+  image: string;
 }
 
 export interface UserResgiter {
