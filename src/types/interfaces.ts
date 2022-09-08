@@ -15,8 +15,7 @@ export interface Process {
   steps: string[];
 }
 
-export interface ItemFromDB {
-  id: string;
+export interface ItemRequest {
   name: string;
   persons: number;
   dificulty: "Fácil" | "Medio" | "Difícil";
@@ -24,6 +23,10 @@ export interface ItemFromDB {
   image: string;
   ingredients: Ingredient[];
   process: Process;
+}
+
+export interface ItemFromDB extends ItemRequest {
+  id: string;
 }
 
 export interface UserResgiter {
