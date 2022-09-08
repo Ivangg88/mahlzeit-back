@@ -7,7 +7,11 @@ import CustomError from "../../utils/error";
 
 const debug = Debug("mahlzeit:server:controllers:itemcontroller");
 
-const getItems = async (req: Request, res: Response, next: NextFunction) => {
+export const getItems = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const items: ItemFromDB[] = await Item.find();
     res.status(201).json(items);
@@ -24,4 +28,21 @@ const getItems = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default getItems;
+export const createItem = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const item = req.body;
+    await Item.create(item);
+    res.status(201).json(item);
+  } catch (error) {
+    const createError = new CustomError(
+      400,
+      error.message,
+      "Error creating the item"
+    );
+    next(createError);
+  }
+};
