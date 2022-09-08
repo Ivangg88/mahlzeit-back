@@ -35,8 +35,9 @@ export const createItem = async (
 ) => {
   try {
     const item = req.body;
-    await Item.create(item);
-    res.status(201).json(item);
+    const itemFromDB = await Item.create(item);
+
+    res.status(201).json(itemFromDB);
   } catch (error) {
     const createError = new CustomError(
       400,
