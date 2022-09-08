@@ -15,7 +15,7 @@ export interface Process {
   steps: string[];
 }
 
-export interface ItemRequest {
+export interface RecipteRequest {
   name: string;
   persons: number;
   dificulty: "Fácil" | "Medio" | "Difícil";
@@ -25,7 +25,7 @@ export interface ItemRequest {
   process: Process;
 }
 
-export interface ItemFromDB extends ItemRequest {
+export interface RecipteFromDB extends RecipteRequest {
   id: string;
 }
 

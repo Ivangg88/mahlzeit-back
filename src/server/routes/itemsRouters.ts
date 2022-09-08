@@ -1,9 +1,9 @@
 import express from "express";
-import { createItem, getItems } from "../controllers/itemController";
+import { createReciptes, getReciptes } from "../controllers/reciptesController";
 
-const itemsRouters = express.Router();
+const reciptesRouters = express.Router();
 
-itemsRouters.get("/getAll", getItems);
-itemsRouters.post("/create", createItem);
+reciptesRouters.get("/getAll", getReciptes);
+reciptesRouters.post("/create", createReciptes);
 
-export default itemsRouters;
+export default reciptesRouters;

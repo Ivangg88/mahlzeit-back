@@ -1,20 +1,20 @@
 import chalk from "chalk";
 import Debug from "debug";
 import { NextFunction, Request, Response } from "express";
-import Item from "../../database/models/itemModel";
-import { ItemFromDB } from "../../types/interfaces";
+import Recipte from "../../database/models/recipteModel";
+import { RecipteFromDB, RecipteRequest } from "../../types/interfaces";
 import CustomError from "../../utils/error";
 
-const debug = Debug("mahlzeit:server:controllers:itemcontroller");
+const debug = Debug("mahlzeit:server:controllers:reciptecontroller");
 
-export const getItems = async (
+export const getReciptes = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const items: ItemFromDB[] = await Item.find();
-    res.status(201).json(items);
+    const reciptes: RecipteFromDB[] = await Recipte.find();
+    res.status(201).json(reciptes);
 
     debug(chalk.bgGreen.white("Request successful!"));
   } catch (error) {
@@ -28,14 +28,15 @@ export const getItems = async (
   }
 };
 
-export const createItem = async (
+export const createReciptes = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const item = req.body;
-    const itemFromDB = await Item.create(item);
+    const recipte: RecipteRequest = req.body;
+
+    const itemFromDB = await Recipte.create(recipte);
 
     res.status(201).json(itemFromDB);
   } catch (error) {

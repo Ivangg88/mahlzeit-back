@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import Item from "../../database/models/itemModel";
-import { ItemFromDB } from "../../types/interfaces";
-import getItems from "./itemController";
+import Recipte from "../../database/models/recipteModel";
+import { RecipteFromDB } from "../../types/interfaces";
+import { getReciptes } from "./reciptesController";
 
 afterEach(() => {
   jest.resetAllMocks();
@@ -18,7 +18,7 @@ describe("Given a function itemController", () => {
   const next = jest.fn();
   describe("When is called with a request", () => {
     test("Then it should call the method status of response with 200 and the method json of response with an array of items", async () => {
-      const items: ItemFromDB[] = [
+      const items: RecipteFromDB[] = [
         {
           id: "",
           name: "",
@@ -32,9 +32,9 @@ describe("Given a function itemController", () => {
       ];
       const status = 201;
 
-      Item.find = jest.fn().mockResolvedValue(items);
+      Recipte.find = jest.fn().mockResolvedValue(items);
 
-      await getItems(req as Request, res as Response, next);
+      await getReciptes(req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(status);
       expect(res.json).toHaveBeenCalledWith(items);
@@ -43,9 +43,9 @@ describe("Given a function itemController", () => {
 
   describe("When is called with a bad request", () => {
     test("Then it should call the function next with an error", async () => {
-      await getItems(req as Request, res as Response, next);
+      await getReciptes(req as Request, res as Response, next);
 
-      Item.find = jest.fn().mockResolvedValue(new Error());
+      Recipte.find = jest.fn().mockResolvedValue(new Error());
 
       expect(next).toHaveBeenCalled();
     });

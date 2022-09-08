@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-const itemSchema = new Schema({
+const recipteSchema = new Schema({
   name: {
     type: String,
     require: true,
@@ -42,6 +42,6 @@ const itemSchema = new Schema({
   },
 });
 
-const Item = model("Item", itemSchema, "items");
+const Recipte = model("Recipte", recipteSchema, "reciptes");
 
-export default Item;
+export default Recipte;
