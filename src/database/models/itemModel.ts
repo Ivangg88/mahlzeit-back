@@ -26,6 +26,11 @@ const itemSchema = new Schema({
     require: true,
   },
 
+  backupImage: {
+    type: String,
+    require: true,
+  },
+
   ingredients: {
     type: Array,
     require: true,
