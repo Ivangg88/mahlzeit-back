@@ -1,34 +1,32 @@
 import { Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
-import { getReciptes } from "./reciptesController";
+import { RecipteFromDB } from "../../types/interfaces";
+import { createReciptes, getReciptes } from "./reciptesController";
 
-afterEach(() => {
-  jest.resetAllMocks();
-});
-
-describe("Given a function itemController", () => {
+describe("Given a function reciptesController", () => {
+  const recipte: RecipteFromDB = {
+    id: "",
+    name: "Test recipte",
+    persons: 0,
+    dificulty: "Difícil",
+    autor: "",
+    image: "",
+    ingredients: "",
+    process: "",
+    backupImage: "",
+  };
   const res = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn(),
   } as Partial<Response>;
 
-  const req = {} as Partial<Request>;
+  const req = { body: recipte } as Partial<Request>;
 
   const next = jest.fn();
-  describe("When is called with a request", () => {
+
+  describe("When the function getReciptes is called with a request", () => {
     test("Then it should call the method status of response with 200 and the method json of response with an array of items", async () => {
-      const items = [
-        {
-          id: "",
-          name: "",
-          persons: 0,
-          dificulty: "Difícil",
-          autor: "",
-          image: "",
-          ingredients: "",
-          process: "",
-        },
-      ];
+      const items = [recipte];
 
       const status = 201;
 
@@ -41,13 +39,15 @@ describe("Given a function itemController", () => {
     });
   });
 
-  describe("When is called with a bad request", () => {
-    test("Then it should call the function next with an error", async () => {
-      await getReciptes(req as Request, res as Response, next);
+  describe("When the function createRecipte is called", () => {
+    test("Then it should call the method status of res with 201 and the method json with a recipte", async () => {
+      const status = 201;
+      Recipte.create = jest.fn().mockResolvedValue(recipte);
 
-      Recipte.find = jest.fn().mockResolvedValue(new Error());
+      await createReciptes(req as Request, res as Response, next);
 
-      expect(next).toHaveBeenCalled();
+      expect(res.status).toBeCalledWith(status);
+      expect(res.json).toHaveBeenCalledWith(recipte);
     });
   });
 });
