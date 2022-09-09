@@ -36,7 +36,6 @@ export const createReciptes = async (
     const recipte = req.body;
 
     const recipteFromDB = await Recipte.create(recipte);
-
     res.status(201).json(recipteFromDB);
   } catch (error) {
     const createError = new CustomError(

@@ -7,14 +7,13 @@ import fileStorage from "../middlewares/filesStorage";
 
 const reciptesRouters = express.Router();
 const upload = multer({
-  dest: path.join("src", "uploads"),
-  limits: { fileSize: 800000 },
+  dest: path.join("uploads"),
 });
 
 reciptesRouters.get("/getAll", getReciptes);
 reciptesRouters.post(
   "/create",
-  upload.single("image"),
+  upload.single("file"),
   fileStorage,
   createReciptes
 );
