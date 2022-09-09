@@ -2,7 +2,6 @@ import chalk from "chalk";
 import Debug from "debug";
 import { NextFunction, Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
-import { RecipteFromDB, RecipteRequest } from "../../types/interfaces";
 import CustomError from "../../utils/error";
 
 const debug = Debug("mahlzeit:server:controllers:reciptecontroller");
@@ -13,8 +12,8 @@ export const getReciptes = async (
   next: NextFunction
 ) => {
   try {
-    const reciptes: RecipteFromDB[] = await Recipte.find();
-    res.status(201).json(reciptes);
+    const reciptes = await Recipte.find();
+    res.status(201).json({ reciptes });
 
     debug(chalk.bgGreen.white("Request successful!"));
   } catch (error) {
@@ -34,11 +33,11 @@ export const createReciptes = async (
   next: NextFunction
 ) => {
   try {
-    const recipte: RecipteRequest = req.body;
+    const recipte = req.body;
 
-    const itemFromDB = await Recipte.create(recipte);
+    const recipteFromDB = await Recipte.create(recipte);
 
-    res.status(201).json(itemFromDB);
+    res.status(201).json(recipteFromDB);
   } catch (error) {
     const createError = new CustomError(
       400,

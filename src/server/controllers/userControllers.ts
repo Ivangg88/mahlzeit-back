@@ -22,10 +22,7 @@ export const registerUser = async (
     user.password = await bcryptjs.hash(user.password, salt);
     await User.create(user);
     res.status(201).json({
-      user: {
-        name: user.userName,
-        message: `User ${user.userName} was registered sucessfully.`,
-      },
+      message: `User ${user.userName} was registered sucessfully.`,
     });
   } catch (error) {
     const customError = new CustomError(
@@ -90,9 +87,7 @@ export const loginUser = async (
   };
 
   const responseData = {
-    user: {
-      token: jwt.sign(payLoad, process.env.PRIVATE_KEY),
-    },
+    token: jwt.sign(payLoad, process.env.PRIVATE_KEY),
   };
 
   res.status(200).json(responseData);

@@ -3,42 +3,37 @@ import { model, Schema } from "mongoose";
 const recipteSchema = new Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
 
   persons: {
     type: Number,
-    require: true,
+    required: true,
   },
 
   dificulty: {
     type: String,
-    require: true,
+    required: true,
   },
 
   autor: {
     type: String,
-    require: true,
+    required: true,
   },
 
   image: {
     type: String,
-    require: true,
-  },
-
-  backupImage: {
-    type: String,
-    require: true,
+    required: true,
   },
 
   ingredients: {
     type: Array,
-    require: true,
+    required: true,
   },
 
   process: {
     type: Array,
-    require: true,
+    required: true,
   },
 });
 

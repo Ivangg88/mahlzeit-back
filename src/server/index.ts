@@ -3,7 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 import { generalError, errorNotFound } from "./middlewares/errors";
 import userRouters from "./routes/userRouters";
-import reciptesRouters from "./routes/itemsRouters";
+import reciptesRouters from "./routes/reciptesRouters";
 
 const app = express();
 app.disable("x-powered-by");
