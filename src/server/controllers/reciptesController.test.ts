@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
-import { RecipteFromDB } from "../../types/interfaces";
 import { getReciptes } from "./reciptesController";
 
 afterEach(() => {
@@ -18,7 +17,7 @@ describe("Given a function itemController", () => {
   const next = jest.fn();
   describe("When is called with a request", () => {
     test("Then it should call the method status of response with 200 and the method json of response with an array of items", async () => {
-      const items: RecipteFromDB[] = [
+      const items = [
         {
           id: "",
           name: "",
@@ -26,10 +25,11 @@ describe("Given a function itemController", () => {
           dificulty: "Difícil",
           autor: "",
           image: "",
-          ingredients: [],
-          process: { steps: [] },
+          ingredients: "",
+          process: "",
         },
       ];
+
       const status = 201;
 
       Recipte.find = jest.fn().mockResolvedValue(items);
@@ -37,7 +37,7 @@ describe("Given a function itemController", () => {
       await getReciptes(req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(status);
-      expect(res.json).toHaveBeenCalledWith(items);
+      expect(res.json).toHaveBeenCalledWith({ reciptes: items });
     });
   });
 

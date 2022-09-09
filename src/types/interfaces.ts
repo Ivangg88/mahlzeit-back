@@ -21,12 +21,13 @@ export interface RecipteRequest {
   dificulty: "Fácil" | "Medio" | "Difícil";
   autor: string;
   image: string;
-  ingredients: Ingredient[];
-  process: Process;
+  ingredients: "";
+  process: "";
 }
 
 export interface RecipteFromDB extends RecipteRequest {
   id: string;
+  backupImage: string;
 }
 
 export interface UserResgiter {

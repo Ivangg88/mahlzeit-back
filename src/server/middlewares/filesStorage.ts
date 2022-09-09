@@ -22,7 +22,7 @@ const fileStorage = async (req: Request, res: Response, next: NextFunction) => {
       path.join("uploads", newFileName)
     );
 
-    debug(`File ${req.file.filename} rename to ${newFileName}`);
+    debug(chalk.blue(`File ${req.file.filename} rename to ${newFileName}`));
 
     const filePath = path.join("uploads", newFileName);
 
@@ -40,7 +40,7 @@ const fileStorage = async (req: Request, res: Response, next: NextFunction) => {
       next(uploadResult.error);
       return;
     }
-    debug("File uploaded sucessfully");
+    debug(chalk.green("File uploaded sucessfully"));
   } catch (error) {
     const fileError = new CustomError(
       400,
