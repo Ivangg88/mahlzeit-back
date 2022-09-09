@@ -40,6 +40,7 @@ const fileStorage = async (req: Request, res: Response, next: NextFunction) => {
       next(uploadResult.error);
       return;
     }
+
     debug(chalk.green("File uploaded sucessfully"));
   } catch (error) {
     const fileError = new CustomError(
