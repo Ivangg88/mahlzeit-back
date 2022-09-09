@@ -26,13 +26,17 @@ const recipteSchema = new Schema({
     required: true,
   },
 
+  backupImage: {
+    type: String,
+  },
+
   ingredients: {
-    type: Array,
+    type: String,
     required: true,
   },
 
   process: {
-    type: Array,
+    type: String,
     required: true,
   },
 });
