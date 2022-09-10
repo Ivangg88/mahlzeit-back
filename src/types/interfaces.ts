@@ -15,15 +15,19 @@ export interface Process {
   steps: string[];
 }
 
-export interface ItemFromDB {
-  id: string;
+export interface RecipteRequest {
   name: string;
   persons: number;
   dificulty: "Fácil" | "Medio" | "Difícil";
   autor: string;
   image: string;
-  ingredients: Ingredient[];
-  process: Process;
+  ingredients: "";
+  process: "";
+}
+
+export interface RecipteFromDB extends RecipteRequest {
+  id: string;
+  backupImage: string;
 }
 
 export interface UserResgiter {

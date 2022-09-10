@@ -93,7 +93,7 @@ describe("Given a function loginUser", () => {
       await loginUser(req as Request, res as Response, next as NextFunction);
 
       expect(res.status).toHaveBeenCalledWith(statusCode);
-      expect(res.json).toHaveBeenCalledWith({ user: { token } });
+      expect(res.json).toHaveBeenCalledWith({ token });
     });
   });
 

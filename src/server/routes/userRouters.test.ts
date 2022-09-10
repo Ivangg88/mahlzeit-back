@@ -28,10 +28,7 @@ describe("Given an userRouters on the endpooint /users/register", () => {
       };
 
       const responseBody = {
-        user: {
-          name: user.userName,
-          message: `User ${user.userName} was registered sucessfully.`,
-        },
+        message: `User ${user.userName} was registered sucessfully.`,
       };
 
       const { body } = await request(app)
@@ -56,9 +53,7 @@ describe("Given an userRouters on the endpooint /users/login", () => {
       jwt.sign = jest.fn().mockReturnValue(token);
 
       const responseBody = {
-        user: {
-          token: "tokencreated",
-        },
+        token: "tokencreated",
       };
 
       const { body } = await request(app)
