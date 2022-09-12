@@ -60,11 +60,71 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3500/items/getAll",
+          "raw": "http://localhost:3500/reciptes/getAll",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3500",
-          "path": ["items", "getAll"]
+          "path": ["reciptes", "getAll"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "unicornio a la brasasss",
+              "type": "text"
+            },
+            {
+              "key": "persons",
+              "value": "2",
+              "type": "text"
+            },
+            {
+              "key": "dificulty",
+              "value": "Medio",
+              "type": "text"
+            },
+            {
+              "key": "process",
+              "value": "Freir las papas",
+              "type": "text"
+            },
+            {
+              "key": "autor",
+              "value": "Yo mismo",
+              "type": "text"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/C:/Users/Ivan ISDI Coders/Desktop/Unicornios/2395267b14fe52559ed622eb4081f008.jpg"
+            },
+            {
+              "key": "ingredients",
+              "value": "Patatas",
+              "type": "text"
+            },
+            {
+              "key": "backupImage",
+              "value": "si",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3500/reciptes/create",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["reciptes", "create"]
         }
       },
       "response": []
