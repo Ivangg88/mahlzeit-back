@@ -8,6 +8,9 @@ import fileStorage from "../middlewares/filesStorage";
 const reciptesRouters = express.Router();
 const upload = multer({
   dest: path.join("public"),
+  limits: {
+    fileSize: 8000000,
+  },
 });
 
 reciptesRouters.get("/getAll", getReciptes);
