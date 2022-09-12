@@ -152,6 +152,39 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Get by id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3500/reciptes/getById/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["reciptes", "getById", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "631f7c3e7fdd7be1f9431bce"
+            }
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
