@@ -4,6 +4,7 @@ import { RecipteFromDB } from "../../types/interfaces";
 import {
   createReciptes,
   deleteRecipte,
+  getRecipteById,
   getReciptes,
 } from "./reciptesController";
 
@@ -88,6 +89,42 @@ describe("Given a function reciptesController", () => {
         next as NextFunction
       );
       expect(next).toHaveBeenCalled();
+    });
+  });
+
+  describe("When the function getRecipteById is called", () => {
+    req = {
+      ...req,
+      params: { id: "test-id" },
+    } as Partial<Request>;
+
+    describe("And receives a request with an id", () => {
+      test("Then it should return a recipte", async () => {
+        Recipte.findById = jest.fn().mockResolvedValueOnce(recipte);
+
+        await getRecipteById(
+          req as Request,
+          res as Response,
+          next as NextFunction
+        );
+
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({ recipte });
+      });
+    });
+
+    describe("And receives an error", () => {
+      test("Then it should call the enxt method", async () => {
+        Recipte.findById = jest.fn().mockRejectedValueOnce(recipte);
+
+        await getRecipteById(
+          req as Request,
+          res as Response,
+          next as NextFunction
+        );
+
+        expect(next).toHaveBeenCalled();
+      });
     });
   });
 });
