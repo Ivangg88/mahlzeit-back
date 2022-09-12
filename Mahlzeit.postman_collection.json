@@ -128,6 +128,30 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"id\":\"631e0a6431cf7bc3064f211e\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3500/reciptes/delete",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3500",
+          "path": ["reciptes", "delete"]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
