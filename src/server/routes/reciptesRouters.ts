@@ -2,7 +2,11 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 
-import { createReciptes, getReciptes } from "../controllers/reciptesController";
+import {
+  createReciptes,
+  deleteRecipte,
+  getReciptes,
+} from "../controllers/reciptesController";
 import fileStorage from "../middlewares/filesStorage";
 
 const reciptesRouters = express.Router();
@@ -20,5 +24,7 @@ reciptesRouters.post(
   fileStorage,
   createReciptes
 );
+
+reciptesRouters.delete("/delete", deleteRecipte);
 
 export default reciptesRouters;

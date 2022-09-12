@@ -47,3 +47,25 @@ export const createReciptes = async (
     next(createError);
   }
 };
+
+export const deleteRecipte = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.query;
+
+    await Recipte.findByIdAndDelete(id);
+
+    res.status(201).json({ Message: "Recipte has been succesfully deleted" });
+  } catch (error) {
+    const deleteError = new CustomError(
+      404,
+      error.message,
+      "Error deleting the recipte"
+    );
+
+    next(deleteError);
+  }
+};
