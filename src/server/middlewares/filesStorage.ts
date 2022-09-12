@@ -18,13 +18,13 @@ const fileStorage = async (req: Request, res: Response, next: NextFunction) => {
       .join("-")}`;
 
     await fs.rename(
-      path.join("uploads", req.file.filename),
-      path.join("uploads", newFileName)
+      path.join("public", req.file.filename),
+      path.join("public", newFileName)
     );
 
     debug(chalk.blue(`File ${req.file.filename} rename to ${newFileName}`));
 
-    const filePath = path.join("uploads", newFileName);
+    const filePath = path.join("public", newFileName);
 
     req.body.image = filePath;
 

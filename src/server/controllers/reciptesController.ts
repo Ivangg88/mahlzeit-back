@@ -34,9 +34,10 @@ export const createReciptes = async (
 ) => {
   try {
     const recipte = req.body;
+    recipte.persons = Number.parseInt(recipte.persons, 2);
 
     const recipteFromDB = await Recipte.create(recipte);
-    res.status(201).json(recipteFromDB);
+    res.status(200).json(recipteFromDB);
   } catch (error) {
     const createError = new CustomError(
       400,

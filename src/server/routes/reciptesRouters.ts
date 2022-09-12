@@ -7,7 +7,7 @@ import fileStorage from "../middlewares/filesStorage";
 
 const reciptesRouters = express.Router();
 const upload = multer({
-  dest: path.join("uploads"),
+  dest: path.join("public"),
 });
 
 reciptesRouters.get("/getAll", getReciptes);
