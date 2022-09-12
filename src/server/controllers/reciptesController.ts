@@ -34,7 +34,7 @@ export const createReciptes = async (
 ) => {
   try {
     const recipte = req.body;
-    recipte.persons = Number.parseInt(recipte.persons, 2);
+    recipte.persons = Number.parseInt(recipte.persons, 10);
 
     const recipteFromDB = await Recipte.create(recipte);
     res.status(200).json(recipteFromDB);
@@ -67,5 +67,26 @@ export const deleteRecipte = async (
     );
 
     next(deleteError);
+  }
+};
+
+export const getRecipteById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+
+  try {
+    const recipte = await Recipte.findById(id);
+
+    res.status(200).json({ recipte });
+  } catch (error) {
+    const customError = new CustomError(
+      404,
+      error.message,
+      "Error finding the recipte"
+    );
+    next(customError);
   }
 };

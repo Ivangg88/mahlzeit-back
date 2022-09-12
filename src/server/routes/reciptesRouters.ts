@@ -5,6 +5,7 @@ import path from "path";
 import {
   createReciptes,
   deleteRecipte,
+  getRecipteById,
   getReciptes,
 } from "../controllers/reciptesController";
 import fileStorage from "../middlewares/filesStorage";
@@ -26,5 +27,7 @@ reciptesRouters.post(
 );
 
 reciptesRouters.delete("/delete", deleteRecipte);
+
+reciptesRouters.get("/getById/:id", getRecipteById);
 
 export default reciptesRouters;
