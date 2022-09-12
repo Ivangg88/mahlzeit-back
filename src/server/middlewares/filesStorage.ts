@@ -12,46 +12,40 @@ const debug = Debug("mahlzeit:server:middlewares:fileStorage");
 const supabase = createClient(backupConectionData.url, backupConectionData.key);
 
 const fileStorage = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const newFileName = `${Date.now()}-${req.file.originalname
-      .split(" ")
-      .join("-")}`;
+  const newFileName = `${Date.now()}-${req.file.originalname
+    .split(" ")
+    .join("-")}`;
 
-    await fs.rename(
-      path.join("public", req.file.filename),
-      path.join("public", newFileName)
-    );
+  await fs.rename(
+    path.join("public", req.file.filename),
+    path.join("public", newFileName)
+  );
 
-    debug(chalk.blue(`File ${req.file.filename} rename to ${newFileName}`));
+  debug(chalk.blue(`File ${req.file.filename} rename to ${newFileName}`));
 
-    const filePath = path.join("public", newFileName);
+  const filePath = path.join("public", newFileName);
 
-    req.body.image = filePath;
+  req.body.image = filePath;
 
-    const file = await fs.readFile(filePath);
+  const file = await fs.readFile(filePath);
 
-    const storage = supabase.storage.from("images");
+  const storage = supabase.storage.from("images");
 
-    const uploadResult = await storage.upload(filePath, file);
+  const uploadResult = await storage.upload(filePath, file);
 
-    req.body.backupImage = storage.getPublicUrl(filePath).publicURL;
+  req.body.backupImage = storage.getPublicUrl(filePath).publicURL;
 
-    if (uploadResult.error) {
-      next(uploadResult.error);
-      return;
-    }
-
-    debug(chalk.green("File uploaded sucessfully"));
-  } catch (error) {
+  if (uploadResult.error) {
     const fileError = new CustomError(
       400,
-      error.message,
+      uploadResult.error.message,
       "Error reading the file"
     );
-
     next(fileError);
     return;
   }
+
+  debug(chalk.green("File uploaded sucessfully"));
   next();
 };
 

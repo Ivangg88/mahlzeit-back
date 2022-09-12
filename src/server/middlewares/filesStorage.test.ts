@@ -1,20 +1,62 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import fileStorage from "./filesStorage";
 
-describe("Given a fileStorage function", () => {
-  describe("When is called with a request", () => {
-    test("Then it should call the function next", () => {
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn(),
-      } as Partial<Response>;
+let mockedUpload = {};
 
-      const req = {} as Partial<Request>;
+jest.mock("fs");
 
-      const next = jest.fn();
-      fileStorage(req as Request, res as Response, next);
+jest.mock("@supabase/supabase-js", () => ({
+  ...jest.requireActual("@supabase/supabase-js"),
 
-      expect(next).toHaveBeenCalled();
+  createClient: () => ({
+    storage: {
+      from: () => ({
+        upload: () => mockedUpload,
+        getPublicUrl: () => "test-url",
+      }),
+    },
+  }),
+}));
+
+jest.mock("fs/promises", () => ({
+  ...jest.requireActual("fs/promises"),
+  rename: jest.fn(),
+  readFile: jest.fn().mockResolvedValue(""),
+}));
+
+const req = {
+  body: {},
+  file: { originalname: "test-name", filename: "filedname-test" },
+} as Partial<Request>;
+const res = {
+  status: jest.fn().mockReturnThis(),
+  json: jest.fn().mockReturnThis(),
+} as Partial<Response>;
+const next: NextFunction = jest.fn();
+
+describe("Given a middleware fileStorage", () => {
+  describe("When it receives a request with a file", () => {
+    test("Then it should call the next method", async () => {
+      await fileStorage(req as Request, res as Response, next as NextFunction);
+
+      await expect(next).toHaveBeenCalled();
+    });
+    describe("When it receives an error in the upload", () => {
+      test("Then it should call the next error with a custom error", async () => {
+        mockedUpload = {
+          error: {
+            message: "Error",
+          },
+        };
+
+        await fileStorage(
+          req as Request,
+          res as Response,
+          next as NextFunction
+        );
+
+        await expect(next).toHaveBeenCalled();
+      });
     });
   });
 });
