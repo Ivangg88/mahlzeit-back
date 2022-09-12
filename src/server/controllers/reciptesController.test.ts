@@ -1,7 +1,11 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
 import { RecipteFromDB } from "../../types/interfaces";
-import { createReciptes, getReciptes } from "./reciptesController";
+import {
+  createReciptes,
+  deleteRecipte,
+  getReciptes,
+} from "./reciptesController";
 
 describe("Given a function reciptesController", () => {
   const recipte: RecipteFromDB = {
@@ -20,7 +24,7 @@ describe("Given a function reciptesController", () => {
     json: jest.fn(),
   } as Partial<Response>;
 
-  const req = { body: recipte } as Partial<Request>;
+  let req = { body: recipte } as Partial<Request>;
 
   const next = jest.fn();
 
@@ -48,6 +52,42 @@ describe("Given a function reciptesController", () => {
 
       expect(res.status).toBeCalledWith(status);
       expect(res.json).toHaveBeenCalledWith(recipte);
+    });
+  });
+
+  describe("When the function deleteRecipte is called with a request", () => {
+    req = {
+      ...req,
+      query: { id: "test-id" },
+      body: {},
+    } as Partial<Request>;
+
+    test("Then it should call the status method with a 201 and json with a message", async () => {
+      Recipte.findByIdAndDelete = jest.fn().mockResolvedValue("");
+
+      await deleteRecipte(
+        req as Request,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalledWith({
+        Message: "Recipte has been succesfully deleted",
+      });
+    });
+  });
+
+  describe("When it receives an error", () => {
+    test("Then it should call the next method", async () => {
+      Recipte.findByIdAndDelete = jest.fn().mockRejectedValue("");
+
+      await deleteRecipte(
+        req as Request,
+        res as Response,
+        next as NextFunction
+      );
+      expect(next).toHaveBeenCalled();
     });
   });
 });
