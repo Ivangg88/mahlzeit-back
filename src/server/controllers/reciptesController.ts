@@ -13,6 +13,7 @@ export const getReciptes = async (
 ) => {
   try {
     const reciptes = await Recipte.find();
+
     res.status(201).json({ reciptes });
 
     debug(chalk.bgGreen.white("Request successful!"));
@@ -35,6 +36,7 @@ export const createReciptes = async (
   try {
     const recipte = req.body;
     recipte.persons = Number.parseInt(recipte.persons, 10);
+    debug(recipte);
 
     const recipteFromDB = await Recipte.create(recipte);
     res.status(200).json(recipteFromDB);
