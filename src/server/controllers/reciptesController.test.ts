@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
 import { RecipteFromDB } from "../../types/interfaces";
+import CustomError from "../../utils/error";
 import {
   createReciptes,
   deleteRecipte,
@@ -44,6 +45,18 @@ describe("Given a function reciptesController", () => {
     });
   });
 
+  describe("When the function getReciptes is called with a bad request", () => {
+    test("Then it should call the function next with an error", async () => {
+      const error = new CustomError(404, "error", "Unable to get the items.");
+
+      Recipte.find = jest.fn().mockRejectedValue(error);
+
+      await getReciptes(req as Request, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+
   describe("When the function createRecipte is called", () => {
     test("Then it should call the method status of res with 201 and the method json with a recipte", async () => {
       const status = 201;
@@ -53,6 +66,17 @@ describe("Given a function reciptesController", () => {
 
       expect(res.status).toBeCalledWith(status);
       expect(res.json).toHaveBeenCalledWith(recipte);
+    });
+  });
+
+  describe("When the function createRecipte is called with a bad request", () => {
+    test("Then it should call the function next with an error", async () => {
+      const error = new Error();
+      Recipte.create = jest.fn().mockRejectedValue(error);
+
+      await createReciptes(req as Request, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 
