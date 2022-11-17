@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { Ingredient, Process } from "../../types/interfaces";
 
 const recipteSchema = new Schema({
   name: {
@@ -31,12 +32,12 @@ const recipteSchema = new Schema({
   },
 
   ingredients: {
-    type: String,
+    type: Array<Ingredient>,
     required: true,
   },
 
   process: {
-    type: String,
+    type: Array<Process>,
     required: true,
   },
 });

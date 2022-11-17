@@ -4,25 +4,26 @@ export interface ICustomError extends Error {
   privateMessage?: string;
 }
 
-type Units = "ml" | "l" | "g" | "Kg" | "ud" | "uds";
 export interface Ingredient {
   name: string;
-  quantity: number;
-  units: Units;
+  quantity: string;
+  unit: string;
 }
 
 export interface Process {
-  steps: string[];
+  process: string;
+  picture: string;
+  backupPicture: string;
 }
 
 export interface RecipteRequest {
   name: string;
   persons: number;
-  dificulty: "Fácil" | "Medio" | "Difícil";
+  dificulty: string;
   autor: string;
+  ingredients: Ingredient[];
+  process: Process[];
   image: string;
-  ingredients: "";
-  process: "";
 }
 
 export interface RecipteFromDB extends RecipteRequest {
