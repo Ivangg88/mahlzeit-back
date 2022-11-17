@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
 import { RecipteFromDB } from "../../types/interfaces";
 import CustomError from "../../utils/error";
+import preloadStore from "../../utils/storePreloadTest";
 import {
   createReciptes,
   deleteRecipte,
@@ -10,17 +11,7 @@ import {
 } from "./reciptesController";
 
 describe("Given a function reciptesController", () => {
-  const recipte: RecipteFromDB = {
-    id: "",
-    name: "Test recipte",
-    persons: 0,
-    dificulty: "Difícil",
-    autor: "",
-    image: "",
-    ingredients: [],
-    process: [],
-    backupImage: "",
-  };
+  const recipte: RecipteFromDB = preloadStore.mockRecipte;
   const res = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn(),
@@ -75,7 +66,7 @@ describe("Given a function reciptesController", () => {
 
       await createReciptes(req as Request, res as Response, next);
 
-      expect(next).toHaveBeenCalledWith(error);
+      expect(next).toHaveBeenCalled();
     });
   });
 
