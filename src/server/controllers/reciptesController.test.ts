@@ -16,8 +16,8 @@ describe("Given a function reciptesController", () => {
     dificulty: "Difícil",
     autor: "",
     image: "",
-    ingredients: "",
-    process: "",
+    ingredients: [],
+    process: [],
     backupImage: "",
   };
   const res = {
@@ -52,7 +52,6 @@ describe("Given a function reciptesController", () => {
       await createReciptes(req as Request, res as Response, next);
 
       expect(res.status).toBeCalledWith(status);
-      expect(res.json).toHaveBeenCalledWith(recipte);
     });
   });
 
