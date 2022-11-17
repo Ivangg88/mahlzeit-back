@@ -2,6 +2,7 @@ import chalk from "chalk";
 import Debug from "debug";
 import { NextFunction, Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
+import { RecipteRequest } from "../../types/interfaces";
 import CustomError from "../../utils/error";
 
 const debug = Debug("mahlzeit:server:controllers:reciptecontroller");
@@ -34,15 +35,20 @@ export const createReciptes = async (
   next: NextFunction
 ) => {
   try {
-    const recipte = req.body;
+    const recipte: RecipteRequest = req.body;
     recipte.ingredients = JSON.parse(req.body.ingredients);
     recipte.process = JSON.parse(req.body.process);
+<<<<<<< Updated upstream
     recipte.persons = Number.parseInt(recipte.persons, 10);
     debug(recipte);
 
     debug(`Recipte create sucessfully ${recipte}`);
+=======
+    debug(chalk.green("Recipte create sucessfully"));
+>>>>>>> Stashed changes
 
     const recipteFromDB = await Recipte.create(recipte);
+
     res.status(200).json(recipteFromDB);
   } catch (error) {
     const createError = new CustomError(
