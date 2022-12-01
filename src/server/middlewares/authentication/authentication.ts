@@ -1,12 +1,9 @@
-import { NextFunction, Request, Response } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import CustomError from "./error";
+import { NextFunction, Response } from "express";
+import jwt from "jsonwebtoken";
+import { CustomRequest } from "../../../types/interfaces";
+import CustomError from "../../../utils/error";
 
-export interface CustomRequest extends Request {
-  payload: JwtPayload;
-}
-
-export const authentication = (
+const authentication = (
   req: CustomRequest,
   res: Response,
   next: NextFunction
@@ -18,7 +15,6 @@ export const authentication = (
     next(error);
     return;
   }
-
   const token = dataAuthentication.slice(7);
   const tokenData = jwt.verify(token, process.env.PRIVATE_KEY);
 
@@ -30,3 +26,5 @@ export const authentication = (
   req.payload = tokenData as CustomRequest;
   next();
 };
+
+export default authentication;

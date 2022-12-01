@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
-import { authentication } from "../../utils/autentication";
+import authentication from "../middlewares/authentication/authentication";
 
 import {
   createReciptes,
