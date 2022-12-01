@@ -1,6 +1,7 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
+import { authentication } from "../../utils/autentication";
 
 import {
   createReciptes,
@@ -21,12 +22,13 @@ const upload = multer({
 reciptesRouters.get("/getAll", getReciptes);
 reciptesRouters.post(
   "/create",
+  authentication,
   upload.single("file"),
   fileStorage,
   createReciptes
 );
 
-reciptesRouters.delete("/delete", deleteRecipte);
+reciptesRouters.delete("/delete", authentication, deleteRecipte);
 
 reciptesRouters.get("/getById/:id", getRecipteById);
 
