@@ -1,3 +1,6 @@
+import { Request } from "express";
+import { JwtPayload } from "jsonwebtoken";
+
 export interface ICustomError extends Error {
   statusCode: number;
   publicMessage?: string;
@@ -47,3 +50,7 @@ export interface UserFromDB extends UserResgiter {
 }
 
 export type UserLogin = Omit<UserResgiter, "email">;
+
+export interface CustomRequest extends Request {
+  payload: JwtPayload;
+}
