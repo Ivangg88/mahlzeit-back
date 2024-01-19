@@ -3,13 +3,12 @@ import fs from "fs/promises";
 import path from "path";
 import Debug from "debug";
 import chalk from "chalk";
-import { createClient } from "@supabase/supabase-js";
 import CustomError from "../../utils/error";
-import backupConectionData from "../../utils/backup";
+import initializeSupabase from "../../utils/backup";
 
 const debug = Debug("mahlzeit:server:middlewares:fileStorage");
 
-const supabase = createClient(backupConectionData.url, backupConectionData.key);
+const supabase = initializeSupabase();
 
 const fileStorage = async (req: Request, res: Response, next: NextFunction) => {
   const newFileName = `${Date.now()}-${req.file.originalname

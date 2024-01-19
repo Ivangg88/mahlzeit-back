@@ -1,6 +1,10 @@
-const backupConectionData = {
-  url: "https://ekdpoeolwqsaxezpjwon.supabase.co",
-  key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrZHBvZW9sd3FzYXhlenBqd29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjI3MTczODEsImV4cCI6MTk3ODI5MzM4MX0.pxbTZ46K492UY1Rkp76tjqeTMfzM0FYjbP2nF86bgYU",
+import { createClient } from "@supabase/supabase-js";
+
+const initializeSupabase = () => {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_KEY;
+
+  return createClient(supabaseUrl, supabaseKey);
 };
 
-export default backupConectionData;
+export default initializeSupabase;
