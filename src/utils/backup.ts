@@ -1,6 +1,6 @@
 const backupConectionData = {
-  url: "https://ekdpoeolwqsaxezpjwon.supabase.co",
-  key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrZHBvZW9sd3FzYXhlenBqd29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjI3MTczODEsImV4cCI6MTk3ODI5MzM4MX0.pxbTZ46K492UY1Rkp76tjqeTMfzM0FYjbP2nF86bgYU",
+  url: "https://jbmvnnuxosjipqbmgifi.supabase.co",
+  key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpibXZubnV4b3NqaXBxYm1naWZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDU1OTg2NDAsImV4cCI6MjAyMTE3NDY0MH0.eez2UxSrce2mL6G6YGp7CyxFX4VlsTfKMq5aFBB1XKc",
 };
 
 export default backupConectionData;
