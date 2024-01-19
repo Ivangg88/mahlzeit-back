@@ -17,5 +17,10 @@ jobs:
       - name: Install modules
         run: npm ci
 
+        - name: Debug Environment Variables
+        run: |
+          echo "SUPABASE_URL: $SUPABASE_URL"
+          echo "SUPABASE_KEY: $SUPABASE_KEY"
+
       - name: Testing
         run: npm test
