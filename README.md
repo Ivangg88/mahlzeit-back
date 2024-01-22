@@ -97,7 +97,7 @@ This endpoint receives recipe information (excluding ID), creates the recipe in 
 
 **Status**: 201 Created
 
-### [DELETE] /delete
+### [DELETE] /reciptes/delete
 
 This endpoint deletes a recipe from the database based on its ID and returns a message:"Recipe has been succesfully deleted".
 The id must be given as param: {id:"id to delete"}.
