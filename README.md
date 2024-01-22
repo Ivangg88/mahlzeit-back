@@ -76,7 +76,7 @@ This endpoint allows a user to log in and generates a token for authentication.
 
 **Status**: 200 OK
 
-## Songs Endpoints
+## Recipes Endpoints
 
 ### [GET] /reciptes/getAll
 
