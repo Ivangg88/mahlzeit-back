@@ -15,7 +15,7 @@ export const registerUser = async (
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
-): Promise<void> => {
+): Promise<boolean> => {
   const user: UserResgiter = req.body;
   const salt = 10;
   try {
@@ -24,6 +24,7 @@ export const registerUser = async (
     res.status(201).json({
       message: `User ${user.userName} was registered sucessfully.`,
     });
+    return true;
   } catch (error) {
     const customError = new CustomError(
       400,
@@ -31,6 +32,7 @@ export const registerUser = async (
       error.message
     );
     next(customError);
+    return false;
   }
 };
 
@@ -39,7 +41,7 @@ export const loginUser = async (
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
-): Promise<void> => {
+): Promise<boolean> => {
   const user = req.body as UserLogin;
 
   let foundUser: UserFromDB;
@@ -53,7 +55,7 @@ export const loginUser = async (
     foundUser = await User.findOne({ userName: user.userName });
     if (foundUser === null) {
       next(userError);
-      return;
+      return false;
     }
   } catch (error) {
     const customError = new CustomError(
@@ -62,7 +64,7 @@ export const loginUser = async (
       error.message
     );
     next(customError);
-    return;
+    return false;
   }
 
   try {
@@ -74,11 +76,12 @@ export const loginUser = async (
     if (!isValidPassword) {
       userError.message = "Password invalid";
       next(userError);
-      return;
+      return false;
     }
   } catch (error) {
     userError.message = error.message;
     next(userError);
+    return false;
   }
 
   const payLoad: CustomJwtPayload = {
@@ -91,4 +94,5 @@ export const loginUser = async (
   };
 
   res.status(200).json(responseData);
+  return true;
 };
