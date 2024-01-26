@@ -15,7 +15,7 @@ export const registerUser = async (
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
-) => {
+): Promise<void> => {
   const user: UserResgiter = req.body;
   const salt = 10;
   try {
@@ -39,7 +39,7 @@ export const loginUser = async (
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
-) => {
+): Promise<void> => {
   const user = req.body as UserLogin;
 
   let foundUser: UserFromDB;
