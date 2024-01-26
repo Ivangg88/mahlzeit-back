@@ -11,7 +11,7 @@ export const getReciptes = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const reciptes = await Recipte.find();
 
@@ -33,7 +33,7 @@ export const createReciptes = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const recipte: RecipteRequest = req.body;
     recipte.ingredients = JSON.parse(req.body.ingredients);
@@ -58,7 +58,7 @@ export const deleteRecipte = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const { id } = req.query;
 
@@ -80,7 +80,7 @@ export const getRecipteById = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const { id } = req.params;
 
   try {
