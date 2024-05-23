@@ -11,13 +11,14 @@ export const getReciptes = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<boolean> => {
   try {
     const reciptes = await Recipte.find();
 
     res.status(201).json({ reciptes });
 
     debug(chalk.bgGreen.white("Request successful!"));
+    return true;
   } catch (error) {
     const findError = new CustomError(
       404,
@@ -26,6 +27,7 @@ export const getReciptes = async (
     );
 
     next(findError);
+    return false;
   }
 };
 
@@ -33,7 +35,7 @@ export const createReciptes = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<boolean> => {
   try {
     const recipte: RecipteRequest = req.body;
     recipte.ingredients = JSON.parse(req.body.ingredients);
@@ -44,6 +46,7 @@ export const createReciptes = async (
     const recipteFromDB = await Recipte.create(recipte);
 
     res.status(200).json(recipteFromDB);
+    return true;
   } catch (error) {
     const createError = new CustomError(
       400,
@@ -51,6 +54,7 @@ export const createReciptes = async (
       "Error creating the item"
     );
     next(createError);
+    return false;
   }
 };
 
@@ -58,13 +62,14 @@ export const deleteRecipte = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<boolean> => {
   try {
     const { id } = req.query;
 
     await Recipte.findByIdAndDelete(id);
 
     res.status(201).json({ Message: "Recipte has been succesfully deleted" });
+    return true;
   } catch (error) {
     const deleteError = new CustomError(
       404,
@@ -73,6 +78,7 @@ export const deleteRecipte = async (
     );
 
     next(deleteError);
+    return false;
   }
 };
 
@@ -80,12 +86,13 @@ export const getRecipteById = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<boolean> => {
   const { id } = req.params;
 
   try {
     const recipte = await Recipte.findById(id);
     res.status(200).json({ recipte });
+    return true;
   } catch (error) {
     const customError = new CustomError(
       404,
@@ -93,5 +100,6 @@ export const getRecipteById = async (
       "Error finding the recipte"
     );
     next(customError);
+    return false;
   }
 };
