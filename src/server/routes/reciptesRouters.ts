@@ -10,6 +10,7 @@ import {
   getReciptes,
 } from "../controllers/reciptesController";
 import fileStorage from "../middlewares/filesStorage";
+import { updateLogs } from "../middlewares/loggerStorage/loggerStorage";
 
 const reciptesRouters = express.Router();
 const upload = multer({
@@ -19,7 +20,7 @@ const upload = multer({
   },
 });
 
-reciptesRouters.get("/getAll", getReciptes);
+reciptesRouters.get("/getAll", updateLogs, getReciptes);
 reciptesRouters.post(
   "/create",
   authentication,

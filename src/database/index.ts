@@ -7,6 +7,7 @@ const debug = Debug("mahlzeit:database:index");
 
 const connectDB = (url: string): Promise<unknown> =>
   new Promise((resolve, reject) => {
+    mongoose.set("strictQuery", true);
     mongoose.set("toJSON", {
       virtuals: true,
       transform: (doc, ret) => {

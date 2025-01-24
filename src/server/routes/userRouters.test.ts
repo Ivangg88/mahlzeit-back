@@ -6,7 +6,10 @@ import app from "..";
 import connectDB from "../../database";
 
 let mongoServer: MongoMemoryServer;
-
+jest.mock("../../utils/backup", () => ({
+  url: "https://mock-url.supabase.co",
+  key: "mock-key",
+}));
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
   const url = mongoServer.getUri();
