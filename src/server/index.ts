@@ -4,12 +4,13 @@ import morgan from "morgan";
 import { generalError, errorNotFound } from "./middlewares/errors";
 import userRouters from "./routes/userRouters";
 import reciptesRouters from "./routes/reciptesRouters";
+import { updateLogs } from "./middlewares/loggerStorage/loggerStorage";
 
 const app = express();
 app.disable("x-powered-by");
 
 const corsOptions = {
-  origin: "https://igarcia-mahlzeit.netlify.app",
+  origin: "*",
 };
 
 app.use(cors(corsOptions));
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use("/public", express.static("public"));
 app.use("/users", userRouters);
 app.use("/reciptes", reciptesRouters);
+app.use("/log", updateLogs);
 
 app.use("/", errorNotFound);
 app.use(generalError);
