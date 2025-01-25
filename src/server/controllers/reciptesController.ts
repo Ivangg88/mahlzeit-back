@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
 import { RecipteRequest } from "../../types/interfaces";
 import CustomError from "../../utils/error";
+import { deleteFile } from "../middlewares/filesStorage";
 
 const debug = Debug("mahlzeit:server:controllers:reciptecontroller");
 
@@ -65,6 +66,13 @@ export const deleteRecipte = async (
 ): Promise<boolean> => {
   try {
     const { id } = req.query;
+
+    const recipte = await Recipte.findById(id);
+    if (!recipte) {
+      throw new Error("Recipte not found");
+    }
+
+    await deleteFile(recipte.image);
 
     await Recipte.findByIdAndDelete(id);
 
