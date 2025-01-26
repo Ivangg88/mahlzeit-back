@@ -27,6 +27,7 @@ export interface RecipteRequest {
   ingredients: Ingredient[];
   process: Process[];
   image: string;
+  authorId: string;
 }
 
 export interface RecipteFromDB extends RecipteRequest {

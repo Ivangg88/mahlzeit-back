@@ -40,6 +40,11 @@ const recipteSchema = new Schema({
     type: Array<Process>,
     required: true,
   },
+
+  authorId: {
+    type: String,
+    require: true,
+  },
 });
 
 const Recipte = model("Recipte", recipteSchema, "reciptes");

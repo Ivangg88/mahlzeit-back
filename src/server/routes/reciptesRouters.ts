@@ -6,11 +6,11 @@ import authentication from "../middlewares/authentication/authentication";
 import {
   createReciptes,
   deleteRecipte,
+  getRecipesByAuthorId,
   getRecipteById,
   getReciptes,
 } from "../controllers/reciptesController";
-import fileStorage from "../middlewares/filesStorage";
-import { updateLogs } from "../middlewares/loggerStorage/loggerStorage";
+import { fileStorage } from "../middlewares/filesStorage";
 
 const reciptesRouters = express.Router();
 const upload = multer({
@@ -20,7 +20,7 @@ const upload = multer({
   },
 });
 
-reciptesRouters.get("/getAll", updateLogs, getReciptes);
+reciptesRouters.get("/getAll", getReciptes);
 reciptesRouters.post(
   "/create",
   authentication,
@@ -32,5 +32,7 @@ reciptesRouters.post(
 reciptesRouters.delete("/delete", authentication, deleteRecipte);
 
 reciptesRouters.get("/getById/:id", getRecipteById);
+
+reciptesRouters.get("/recipesByUser", authentication, getRecipesByAuthorId);
 
 export default reciptesRouters;

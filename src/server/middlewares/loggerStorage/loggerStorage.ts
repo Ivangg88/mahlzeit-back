@@ -5,41 +5,29 @@ import chalk from "chalk";
 import backupConectionData from "../../../utils/backup";
 import CustomError from "../../../utils/error";
 
-const debug = Debug("mahlzeit:server:middlewares:fileStorage");
+const debug = Debug("mahlzeit:server:middlewares:loggerStorage");
 
 const supabase = createClient(backupConectionData.url, backupConectionData.key);
+const bucket = backupConectionData.imageBucketName;
 
 export const updateLogs = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  // Obtener el archivo logs.txt desde Supabase
-  const storage = supabase.storage.from("images");
+  const storage = supabase.storage.from(bucket);
   const fileName = "public/logs.txt";
-  const { data, error } = await storage.download(fileName);
 
-  if (error) {
-    const errorMessage = new Error(
-      `Error downdloading file ${fileName} from supabase.`
-    );
-    debug(chalk.red(error.message));
-    next(errorMessage);
-    return;
-  }
-  const arrayBuffer = await data.arrayBuffer();
-  const decoder = new TextDecoder("utf-8");
-  const fileContent = decoder.decode(arrayBuffer);
-  const newLine = `New request at date ${new Date().toLocaleString()} with method ${
+  const newContent = `Last request at date ${new Date().toLocaleString()} with method ${
     req.method
   } and origin ${req.headers.host}`;
-  const newContent = `${fileContent}\n${newLine}`;
 
   const updatedData = Buffer.from(newContent, "utf-8");
 
   const { error: uploadError } = await storage.upload(fileName, updatedData, {
-    upsert: true, // Esto sobrescribirá el archivo existente
+    upsert: true,
   });
+
   if (uploadError) {
     const fileError = new CustomError(
       400,
@@ -51,8 +39,9 @@ export const updateLogs = async (
     return;
   }
 
-  debug(chalk.green("File updated"));
-  next();
+  debug(chalk.green(`File updated with: "${newContent}"`));
+  res.setHeader("response", JSON.stringify(newContent));
+  res.status(201).end();
 };
 
 export default updateLogs;

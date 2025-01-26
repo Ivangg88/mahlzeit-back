@@ -14,6 +14,7 @@ const preloadStore = {
     process,
     image: "",
     backupImage: "",
+    authorId: "",
   },
   mockProtoRecipte: {
     name: "Mock recipte",

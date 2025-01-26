@@ -2,7 +2,7 @@ import chalk from "chalk";
 import Debug from "debug";
 import { NextFunction, Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
-import { RecipteRequest } from "../../types/interfaces";
+import { CustomRequest, RecipteRequest } from "../../types/interfaces";
 import CustomError from "../../utils/error";
 import { deleteFile } from "../middlewares/filesStorage";
 
@@ -33,18 +33,24 @@ export const getReciptes = async (
 };
 
 export const createReciptes = async (
-  req: Request,
+  req: CustomRequest,
   res: Response,
   next: NextFunction
 ): Promise<boolean> => {
   try {
-    const recipte: RecipteRequest = req.body;
-    recipte.ingredients = JSON.parse(req.body.ingredients);
-    recipte.process = JSON.parse(req.body.process);
+    const recipe: RecipteRequest = req.body;
+    const { id, userName } = req.payload;
 
-    debug(chalk.green("Recipte create sucessfully"));
+    recipe.ingredients = JSON.parse(req.body.ingredients);
+    recipe.process = JSON.parse(req.body.process);
+    recipe.authorId = id;
+    recipe.autor = userName;
 
-    const recipteFromDB = await Recipte.create(recipte);
+    const recipteFromDB = await Recipte.create(recipe);
+
+    debug(
+      chalk.green(`Recipte create sucessfully for the user  ${recipe.autor}`)
+    );
 
     res.status(200).json(recipteFromDB);
     return true;
@@ -108,6 +114,30 @@ export const getRecipteById = async (
       "Error finding the recipte"
     );
     next(customError);
+    return false;
+  }
+};
+
+export const getRecipesByAuthorId = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+): Promise<boolean> => {
+  try {
+    const { id, userName } = req.payload;
+    const recipes = await Recipte.find({ authorId: id });
+
+    debug(chalk.green(`Recipes for user ${userName} founded sucessfully`));
+
+    res.status(200).json(recipes);
+    return true;
+  } catch (error) {
+    const findError = new CustomError(
+      400,
+      error.message,
+      "Error searching the recipes"
+    );
+    next(findError);
     return false;
   }
 };
