@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import fileStorage from "./filesStorage";
+import { fileStorage } from "./filesStorage";
 
 let mockedUpload = {};
 
