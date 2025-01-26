@@ -19,10 +19,17 @@ export const fileStorage = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const tempFilePath = `${req.file.originalname.split(" ").join("-")}`;
+  if (!req.file || !req.file.filename || !req.file.originalname) {
+    next(
+      new CustomError(400, "Bad request", "Request not valid, file not found")
+    );
+    return;
+  }
+
+  const tempFilePath = `${req.file?.originalname.split(" ").join("-")}`;
 
   await fs.rename(
-    path.join("public", req.file.filename),
+    path.join("public", req.file?.filename),
     path.join("public", tempFilePath)
   );
 
@@ -37,8 +44,8 @@ export const fileStorage = async (
 
   const storage = supabase.storage.from(imageBucket);
 
-  req.body.image = newFilePath;
-  req.body.backupImage = storage.getPublicUrl(newFilePath).publicURL;
+  req.body.image = storage.getPublicUrl(newFilePath).publicURL;
+  req.body.backupImage = req.body.image;
 
   const uploadResult = await storage.upload(newFilePath, buffer);
   if (uploadResult.error) {
@@ -50,7 +57,7 @@ export const fileStorage = async (
     next(fileError);
     return;
   }
-
+  fs.unlink(newFilePath);
   debug(chalk.green("File uploaded sucessfully"));
   next();
 };
@@ -74,6 +81,5 @@ export const deleteFile = async (filePath: string) => {
     debug(chalk.red("Error removing the file from the server."));
     debug(chalk.red(`${error.name} ${error.message}`));
   }
-  // 4. Eliminar la imagen del servidor
 };
 export default fileStorage;

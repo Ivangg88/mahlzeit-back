@@ -10,7 +10,7 @@ const app = express();
 app.disable("x-powered-by");
 
 const corsOptions = {
-  origin: "https://igarcia-mahlzeit.netlify.app",
+  origin: process.env.CORS_ORIGIN?.split(";"),
 };
 
 app.use(cors(corsOptions));
