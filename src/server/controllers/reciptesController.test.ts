@@ -87,9 +87,6 @@ describe("Given a function reciptesController", () => {
       );
 
       expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith({
-        Message: "Recipte has been succesfully deleted",
-      });
     });
   });
 

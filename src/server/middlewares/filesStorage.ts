@@ -57,7 +57,11 @@ export const fileStorage = async (
     next(fileError);
     return;
   }
-  fs.unlink(newFilePath);
+  try {
+    await fs.unlink(newFilePath);
+  } catch (error) {
+    debug(chalk.red(`File: ${newFilePath} not found.`));
+  }
   debug(chalk.green("File uploaded sucessfully"));
   next();
 };
