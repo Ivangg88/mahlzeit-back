@@ -49,7 +49,7 @@ export const createReciptes = async (
     const recipteFromDB = await Recipte.create(recipe);
 
     debug(
-      chalk.green(`Recipte create sucessfully for the user  ${recipe.autor}`)
+      chalk.green(`Recipe create successfully for the user  ${recipe.autor}`)
     );
 
     res.status(200).json(recipteFromDB);
@@ -58,8 +58,9 @@ export const createReciptes = async (
     const createError = new CustomError(
       400,
       error.message,
-      "Error creating the item"
+      "Error creating the recipe"
     );
+
     next(createError);
     return false;
   }

@@ -24,7 +24,7 @@ afterAll(async () => {
 describe("Given an itemRouter on the endpoint /reciptes/getAll", () => {
   describe("When receives a GET request", () => {
     test("Then it should get a 201", async () => {
-      await request(app).get("/reciptes/getAll").expect(500);
+      await request(app).get("/reciptes/getAll").expect(201);
     });
   });
 });
