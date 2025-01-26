@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Recipte from "../../database/models/recipteModel";
-import { RecipteFromDB } from "../../types/interfaces";
+import { CustomRequest, RecipteFromDB } from "../../types/interfaces";
 import CustomError from "../../utils/error";
 import preloadStore from "../../utils/storePreloadTest";
 import {
@@ -53,7 +53,7 @@ describe("Given a function reciptesController", () => {
       const status = 201;
       Recipte.create = jest.fn().mockResolvedValue(recipte);
 
-      await createReciptes(req as Request, res as Response, next);
+      await createReciptes(req as CustomRequest, res as Response, next);
 
       expect(res.status).toBeCalledWith(status);
     });
@@ -64,7 +64,7 @@ describe("Given a function reciptesController", () => {
       const error = new Error();
       Recipte.create = jest.fn().mockRejectedValue(error);
 
-      await createReciptes(req as Request, res as Response, next);
+      await createReciptes(req as CustomRequest, res as Response, next);
 
       expect(next).toHaveBeenCalled();
     });
